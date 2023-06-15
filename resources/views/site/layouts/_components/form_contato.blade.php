@@ -1,6 +1,5 @@
 {{ $slot }}
-{{ $classe }}
-<form action="{{ route('site.contato') }}" method="post">
+<form action={{ route('site.contato') }} method="post">
     @csrf
     <input name="nome" type="text" placeholder="Nome" class="{{ $classe }}">
     <br>
@@ -19,3 +18,17 @@
     <br>
     <button type="submit" class="{{ $classe }}">ENVIAR</button>
 </form>
+
+<pre style="
+    position: relative;
+    background: red;
+    z-index: 999;
+    padding: 1rem;
+    color: white;
+    overflow: hidden;
+    font-size: 1rem;
+    width: 100%;
+    overflow-x: scroll;
+">
+{{ print_r($errors) }}
+</pre>
