@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\MotivoContato;
 
-class AlterFornecedoresNovaColunaSiteComAfter extends Migration
+class CreateMotivoContatosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +14,10 @@ class AlterFornecedoresNovaColunaSiteComAfter extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('fornecedores', function (Blueprint $table) {
-            $table->string('site', 150)->after('nome')->nullable();
+        Schema::create('motivo_contatos', function (Blueprint $table) {
+            $table->id();
+            $table->string('motivo_contato',20);
+            $table->timestamps();
         });
     }
 
@@ -26,8 +28,6 @@ class AlterFornecedoresNovaColunaSiteComAfter extends Migration
      */
     public function down()
     {
-        Schema::table('fornecedores', function (Blueprint $table) {
-            $table->dropColumn('site');
-        });
+        Schema::dropIfExists('motivo_contatos');
     }
 }

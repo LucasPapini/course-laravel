@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\MotivoContato;
 use Illuminate\Http\Request;
-
-use App\SiteContato;
-
-use function GuzzleHttp\Promise\all;
 
 class ContatoController extends Controller
 {
@@ -34,17 +31,18 @@ class ContatoController extends Controller
         //$contato->save();
         //print_r($contato->getAttributes());
 
-        return view('site.contato', ['titulo' => 'Contato (teste)']);
+        $motivo_contatos = MotivoContato::all();
+        return view('site.contato', ['titulo' => 'Contato (teste)', 'motivo_contatos' => $motivo_contatos]);
     }
 
     public function salvar(Request $request){
         //validação dos dados recebidos do formulário via request
         $request->validate([
-            'nome' => 'required',
+            'nome' => 'required|min:3|max:40',
             'telefone' => 'required',
             'email' => 'required',
             'motivo_contato' => 'required',
-            'menssagem' => 'required',
+            'menssagem' => 'required|max:2000',
         ]);
         //SiteContato::create($request->all());
     }
