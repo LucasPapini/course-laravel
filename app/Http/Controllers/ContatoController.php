@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\MotivoContato;
+use App\SiteContato;
 use Illuminate\Http\Request;
 
 class ContatoController extends Controller
 {
-    public function contato(Request $request) {
-        
+    public function contato(Request $request)
+    {
+
         //print_r($request->all());
         // echo '<pre>';
         // print_r($request->all());
@@ -27,7 +29,7 @@ class ContatoController extends Controller
 
         // $contato = new SiteContato();
         // $contato->create($request->all());
-        
+
         //$contato->save();
         //print_r($contato->getAttributes());
 
@@ -35,15 +37,28 @@ class ContatoController extends Controller
         return view('site.contato', ['titulo' => 'Contato (teste)', 'motivo_contatos' => $motivo_contatos]);
     }
 
-    public function salvar(Request $request){
-        //validação dos dados recebidos do formulário via request
-        $request->validate([
+    public function salvar(Request $request)
+    {
+        $regras = [
             'nome' => 'required|min:3|max:40',
             'telefone' => 'required',
-            'email' => 'required',
-            'motivo_contato' => 'required',
-            'menssagem' => 'required|max:2000',
-        ]);
-        //SiteContato::create($request->all());
+            'email' => 'email',
+            'motivo_contatos_id' => 'required',
+            'mensagem' => 'required|max:2000',
+        ];
+
+        $feedback = [
+            'nome.min'      => 'O campo :attribute precisa ter no minimo 3 caracteres!',
+            'nome.max'      => 'O campo :attribute poder ter no máximo 40 caracteres!',
+            'email.email'         => 'O email inforamdo não é válido!',
+            'motivo_contatos_id.required'         => 'O campo motivo contato é obrigatório!',
+            'required'               => 'O campo :attribute deve ser preenchido!'
+        ];
+
+        //validação dos dados recebidos do formulário via request
+        $request->validate($regras, $feedback);
+
+        SiteContato::create($request->all());
+        return redirect()->route('site.index');
     }
 }
