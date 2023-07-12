@@ -15,11 +15,11 @@ class AutenticacaoMiddleware
      */
     public function handle($request, Closure $next, String $padrao)
     {
-        echo "$padrao";
-        if (true) {
+       session_start();
+       if(isset($_SESSION['email']) && $_SESSION['email'] != ''){
             return $next($request);
-        } else {
-            return Response('Acesso negado');
-        }
+       }else{
+        return redirect()->route('site.login', ['erro' => 2]);
+       }
     }
 }
