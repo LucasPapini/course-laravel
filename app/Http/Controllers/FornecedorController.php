@@ -8,7 +8,7 @@ class FornecedorController extends Controller
 {
     public function index()
     {
-        return view('app.fornecedor');
+        return view('app.fornecedor.index');
         // $fornecedores = [
         //     0 => [
         //         'nome' => 'Fornecedor 1',
@@ -32,7 +32,15 @@ class FornecedorController extends Controller
         //         'telefone' => '0000-0000'
         //     ]
         // ];
-
         // return view('app.fornecedor.index', compact('fornecedores'));
+    }
+
+    public function listar()
+    {
+        return view('app.fornecedor.listar');
+    }
+
+    public function adicionar(){
+        return view('app.fornecedor.adicionar');
     }
 }
